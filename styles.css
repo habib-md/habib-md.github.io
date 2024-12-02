@@ -1,0 +1,353 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #f8fbff, #ffffff);
+    color: #333;
+}
+
+/* Container */
+.container {
+    width: 85%;
+    max-width: 900px;
+    margin: 30px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+/* Header */
+/* Header */
+.header {
+    text-align: center;
+    background: url("denim.png");
+    /* linear-gradient(135deg, #003366, #0073e6); Gradient background */
+    position: relative;
+    padding: 0.1px 0; /* Increased padding for more visual space */
+    border-radius: 10px;
+    color: #ffffff;
+    margin-bottom: 1px;
+    font-family: 'Lora', serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Deep shadow for depth */
+    overflow: hidden; /* To keep everything within the rounded corners */
+}
+
+/* Graphic background elements */
+.header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: url("denim.png");
+    background-size: contain;
+    transform: translateX(-50%) rotate(15deg);
+    opacity: 0.1; /* Subtle pattern in the background */
+    z-index: 0;
+}
+
+/* Title Styling */
+.header h1 {
+    font-size: 3.2em; /* Increased font size for impact */
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: 2px; /* Added letter-spacing for modern appeal */
+    text-transform: uppercase; /* Uppercase for a formal touch */
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); /* Deeper text shadow for more depth */
+    position: relative;
+    z-index: 1; /* Ensures the title is on top of the background graphic */
+}
+
+/* Role Styling */
+.header .role {
+    font-size: 1.4em;
+    font-style: italic;
+    margin: 5px 0 20px 0;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8); /* Subtle contrast */
+    position: relative;
+    z-index: 1;
+}
+
+/* Contact Section Styling */
+.header .contact {
+    font-size: 1.1em;
+    color: #ffffff;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Styling for individual contact items */
+.header .contact span,
+.header .contact a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Gap between text and icons */
+    font-weight: 400;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Contact Links Styling */
+.header .contact a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header .contact a:hover {
+    color: #ffcc00; /* Hover effect on links */
+    text-decoration: underline;
+    transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* Icons Styling */
+.header .contact i {
+    font-size: 1.2em; /* Icon size */
+    transition: all 0.3s ease-in-out;
+}
+
+.header .contact i:hover {
+    color: #ffcc00; /* Change icon color on hover */
+    transform: scale(1.1); /* Slightly larger icon on hover */
+}
+
+/* Optional: Add a subtle separator under the title */
+.header::after {
+    content: '';
+    width: 100px;
+    height: 3px;
+    background: #ffcc00;
+    position: absolute;
+    bottom: -10px; /* Adjust position to match the header height */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2.5em; /* Slightly smaller font on mobile */
+    }
+    .header .role {
+        font-size: 1.2em;
+    }
+    .header .contact {
+        flex-direction: column;
+        gap: 12px; /* Less gap between contact elements */
+    }
+}
+
+
+/* Skills Section */
+.skills ul {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills li {
+    background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #0056b3;
+    font-weight: 600;
+    font-size: 1em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.skills li:hover {
+    background: #0056b3;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+/* Section */
+.section {
+    margin-top: 40px;
+}
+
+.section-title {
+    font-size: 1.8em;
+    color: #0056b3;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: 'Lora', serif;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background: #0056b3;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.section-content {
+    padding: 20px;
+    background: linear-gradient(135deg, #f8faff, #ffffff);
+    border-left: 5px solid #0056b3;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Professional Summary */
+.section-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.section-content ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Projects Section */
+.section-projects .project {
+    margin-bottom: 15px;
+    background: #eaf3ff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-projects .project:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.section-projects .project strong {
+    color: #0056b3;
+    font-family: 'Lora', serif;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #555;
+    font-style: italic;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: #ffffff;
+        -webkit-print-color-adjust: exact;
+    }
+
+    .container {
+        box-shadow: none;
+        padding: 0;
+    }
+}
+/* Professional Summary Section */
+.professional-summary {
+    margin-top: 40px;
+}
+
+.professional-summary .section-title {
+    font-size: 1.8em;
+    color: #004085;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: 'Lora', serif;
+    position: relative;
+}
+
+.professional-summary .section-title::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background: #004085;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.professional-summary .section-content {
+    padding: 20px;
+    background: linear-gradient(135deg, #eef3fd, #ffffff);
+    border-left: 5px solid #004085;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+
+.professional-summary .section-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.professional-summary .section-content ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Education Section */
+.education {
+    margin-top: 40px;
+}
+
+.education .section-title {
+    font-size: 1.8em;
+    color: #00796b;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: 'Lora', serif;
+    position: relative;
+}
+
+.education .section-title::after {
+    content: '';
+    width: 50px;
+    height: 3px;
+    background: #00796b;
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+}
+
+.education .section-content {
+    padding: 20px;
+    background: linear-gradient(135deg, #e0f2f1, #ffffff);
+    border-left: 5px solid #00796b;
+    border-radius: 8px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+}
+
+.education .section-content ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.education .section-content ul li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
