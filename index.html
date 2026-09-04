@@ -661,4 +661,179 @@
         <div class="edu-item">
           <div class="edu-degree">Higher Secondary (Class XII)</div>
           <div class="edu-school">Rol C M Tayyeb Institution · Jul 2014 – May 2016</div>
+          <div class="edu-score">Score: 70%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="wrap reveal">
+    <div class="section-num">05 / Contact</div>
+    <h2>Have a release that needs a safety net?</h2>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:shabibul19@gmail.com">
+        <span class="v">shabibul19@gmail.com</span>
+        <span class="k">email</span>
+      </a>
+      <a class="contact-link" href="tel:+918001464901">
+        <span class="v">+91 8001464901</span>
+        <span class="k">phone</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/sk-habibul-0061151a1" target="_blank" rel="noopener">
+        <span class="v">linkedin.com/in/sk-habibul-0061151a1</span>
+        <span class="k">linkedin</span>
+      </a>
+      <a class="contact-link" href="#">
+        <span class="v">Kolkata, West Bengal, India</span>
+        <span class="k">location</span>
+      </a>
+    </div>
+  </div>
+  <div class="wrap">
+    <footer>
+      <span>SK Habibul — QA Automation Engineer</span>
+      <span>Built with Playwright energy</span>
+    </footer>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  // ---------- Terminal typing sequence ----------
+  const lines = [
+    { html: '<span class="prompt">$</span> npx playwright test', pause: 500 },
+    { html: '<span class="grey">Running 24 tests using 4 workers</span>', pause: 400 },
+    { html: '<span class="grey">  ✓ login flow validates session token (312ms)</span>', pause: 200 },
+    { html: '<span class="grey">  ✓ checkout API returns schema-valid response (188ms)</span>', pause: 200 },
+    { html: '<span class="grey">  ✓ regression suite passes on Chromium, Firefox, WebKit</span>', pause: 300 },
+    { html: '<span class="pass">  24 passed</span> <span class="grey">(18.4s)</span>', pause: 100 },
+  ];
+
+  const termBody = document.getElementById('terminal-body');
+  let lineIndex = 0;
+
+  function typeLine(){
+    if(lineIndex >= lines.length){
+      const c = document.createElement('span');
+      c.className = 'cursor';
+      termBody.appendChild(c);
+      return;
+    }
+    const div = document.createElement('div');
+    div.className = 'line';
+    termBody.appendChild(div);
+    const text = lines[lineIndex].html;
+    // reveal as plain text typing feel but instant HTML-safe append
+    div.innerHTML = text;
+    div.style.opacity = '0';
+    requestAnimationFrame(()=>{
+      div.style.transition = 'opacity .25s ease';
+      div.style.opacity = '1';
+    });
+    lineIndex++;
+    setTimeout(typeLine, lines[lineIndex-1].pause + 260);
+  }
+  setTimeout(typeLine, 400);
+
+  // ---------- Three.js pipeline node-graph background ----------
+  (function(){
+    const canvas = document.getElementById('hero-canvas');
+    if(!window.THREE || !canvas) return;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.z = 34;
+
+    function resize(){
+      const w = canvas.parentElement.offsetWidth;
+      const h = canvas.parentElement.offsetHeight;
+      renderer.setSize(w, h);
+      camera.aspect = w/h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Nodes representing pipeline stages
+    const NODE_COUNT = 46;
+    const nodes = [];
+    const nodeGeo = new THREE.SphereGeometry(0.22, 8, 8);
+    const nodeMatPass = new THREE.MeshBasicMaterial({ color: 0x5EEAD4 });
+    const nodeMatDim = new THREE.MeshBasicMaterial({ color: 0x2E7D74 });
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    for(let i=0;i<NODE_COUNT;i++){
+      const isAccent = Math.random() > 0.75;
+      const mesh = new THREE.Mesh(nodeGeo, isAccent ? nodeMatPass : nodeMatDim);
+      const x = (Math.random()-0.5) * 60;
+      const y = (Math.random()-0.5) * 34;
+      const z = (Math.random()-0.5) * 20;
+      mesh.position.set(x,y,z);
+      mesh.userData = {
+        baseY: y,
+        speed: 0.15 + Math.random()*0.25,
+        offset: Math.random()*Math.PI*2
+      };
+      group.add(mesh);
+      nodes.push(mesh);
+    }
+
+    // Connections between nearby nodes
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x2E7D74, transparent:true, opacity:0.25 });
+    const linePositions = [];
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const d = nodes[i].position.distanceTo(nodes[j].position);
+        if(d < 11 && Math.random() > 0.55){
+          linePositions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
+          linePositions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
+        }
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+    const lineSegments = new THREE.LineSegments(lineGeo, lineMat);
+    group.add(lineSegments);
+
+    let mouseX = 0, mouseY = 0;
+    window.addEventListener('mousemove', (e)=>{
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    });
+
+    const clock = new THREE.Clock();
+    function animate(){
+      const t = clock.getElapsedTime();
+      nodes.forEach(n=>{
+        n.position.y = n.userData.baseY + Math.sin(t*n.userData.speed + n.userData.offset) * 0.8;
+      });
+      group.rotation.y += (mouseX * 0.15 - group.rotation.y) * 0.02;
+      group.rotation.x += (mouseY * 0.08 - group.rotation.x) * 0.02;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+  })();
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
+
          
