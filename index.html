@@ -703,13 +703,13 @@
 <script>
   // ---------- Terminal typing sequence ----------
   const lines = [
-    { html: '<span class="prompt">$</span> npx playwright test', pause: 500 },
-    { html: '<span class="grey">Running 24 tests using 4 workers</span>', pause: 400 },
-    { html: '<span class="grey">  ✓ login flow validates session token (312ms)</span>', pause: 200 },
-    { html: '<span class="grey">  ✓ checkout API returns schema-valid response (188ms)</span>', pause: 200 },
-    { html: '<span class="grey">  ✓ regression suite passes on Chromium, Firefox, WebKit</span>', pause: 300 },
-    { html: '<span class="pass">  24 passed</span> <span class="grey">(18.4s)</span>', pause: 100 },
-  ];
+  { html: '<span class="prompt">$</span> npx playwright run --career', pause: 500 },
+  { html: '<span class="grey">Running 5+ years across 2 companies</span>', pause: 400 },
+  { html: '<span class="grey">  ✓ Tech Mahindra — Selenium → Playwright migration led (4y)</span>', pause: 250 },
+  { html: '<span class="grey">  ✓ Infosys — AI-assisted automation with Playwright MCP (1y)</span>', pause: 250 },
+  { html: '<span class="grey">  ✓ Enterprise releases shipped with zero regressions missed</span>', pause: 300 },
+  { html: '<span class="pass">  5+ years passed</span> <span class="grey">(0 burnouts)</span>', pause: 100 },
+];
 
   const termBody = document.getElementById('terminal-body');
   let lineIndex = 0;
