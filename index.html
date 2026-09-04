@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SK Habibul — QA Automation Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0E14;
+    --panel: #131824;
+    --panel-2: #0F1420;
+    --border: #232B3D;
+    --text: #ECEEF3;
+    --muted: #8891A3;
+    --accent: #5EEAD4;
+    --accent-dim: #2E7D74;
+    --amber: #FBBF24;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1040px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav-logo{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--accent);
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links li{ transition:color .2s; }
+
+  @media (max-width:640px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-top:80px;
+    overflow:hidden;
+  }
+
+  #hero-canvas{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    opacity:0.55;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+  }
+
+  .hero-eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-eyebrow .dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+  }
+
+  .hero h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(38px, 6vw, 66px);
+    line-height:1.05;
+    letter-spacing:-0.02em;
+    max-width:820px;
+  }
+
+  .hero p.sub{
+    margin-top:22px;
+    max-width:560px;
+    color:var(--muted);
+    font-size:17px;
+  }
+
+  .hero-cta{
+    margin-top:36px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .btn{
+    font-family:var(--body);
+    font-weight:600;
+    font-size:14px;
+    padding:13px 26px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:transform .15s ease, background .2s ease, border-color .2s ease;
+    display:inline-block;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#06231F;
+    border:1px solid var(--accent);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); background:#7FF0DE; }
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+
+  /* ---------- TERMINAL ---------- */
+  .terminal{
+    margin-top:56px;
+    max-width:560px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:11px 14px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--border);
+  }
+  .terminal-bar span{
+    width:10px; height:10px; border-radius:50%;
+    background:#3A4256;
+  }
+  .terminal-bar .label{
+    margin-left:8px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    width:auto; height:auto; border-radius:0; background:none;
+  }
+  .terminal-body{
+    padding:20px 22px;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:#B7C0D4;
+    min-height:150px;
+  }
+  .terminal-body .line{ white-space:pre; }
+  .terminal-body .prompt{ color:var(--accent); }
+  .terminal-body .pass{ color:var(--accent); font-weight:600; }
+  .terminal-body .grey{ color:var(--muted); }
+  .cursor{
+    display:inline-block;
+    width:7px; height:15px;
+    background:var(--accent);
+    vertical-align:middle;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{
+    padding:120px 0;
+    position:relative;
+  }
+  .section-head{
+    margin-bottom:56px;
+  }
+  .section-num{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  .section-head h2{
+    font-family:var(--display);
+    font-size:clamp(28px, 4vw, 38px);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:60px;
+  }
+  @media (max-width:760px){
+    .about-grid{ grid-template-columns:1fr; }
+  }
+  .about-text p{
+    color:#C4CAD9;
+    font-size:16.5px;
+    max-width:64ch;
+  }
+  .about-text p + p{ margin-top:16px; }
+
+  .stat-list{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--border);
+  }
+  .stat-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:18px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .stat-row .num{
+    font-family:var(--display);
+    font-size:28px;
+    color:var(--text);
+    font-weight:600;
+  }
+  .stat-row .label{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    text-align:right;
+    max-width:160px;
+  }
+
+  /* ---------- SKILLS (test-suite style) ---------- */
+  .suite{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .suite-group{
+    border-bottom:1px solid var(--border);
+  }
+  .suite-group:last-child{ border-bottom:none; }
+  .suite-group-head{
+    padding:16px 22px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+    background:var(--panel-2);
+  }
+  .suite-items{
+    padding:6px 0;
+  }
+  .suite-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 22px;
+    font-family:var(--mono);
+    font-size:14px;
+    transition:background .15s ease;
+  }
+  .suite-item:hover{ background:rgba(94,234,212,0.04); }
+  .suite-item .check{
+    color:var(--accent);
+    font-size:13px;
+    flex-shrink:0;
+  }
+  .suite-item .name{ color:var(--text); }
+  .suite-item .time{
+    margin-left:auto;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .timeline{
+    position:relative;
+    padding-left:32px;
+    border-left:1px solid var(--border);
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:56px;
+  }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-dot{
+    position:absolute;
+    left:-37.5px;
+    top:4px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent);
+  }
+  .tl-date{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+    margin-bottom:8px;
+  }
+  .tl-role{
+    font-family:var(--display);
+    font-size:21px;
+    font-weight:600;
+    margin-bottom:2px;
+  }
+  .tl-org{
+    color:var(--muted);
+    font-size:14.5px;
+    margin-bottom:16px;
+  }
+  .tl-list{
+    list-style:none;
+    max-width:640px;
+  }
+  .tl-list li{
+    position:relative;
+    padding-left:18px;
+    color:#C4CAD9;
+    font-size:15px;
+    margin-bottom:10px;
+  }
+  .tl-list li::before{
+    content:'—';
+    position:absolute;
+    left:0;
+    color:var(--muted);
+  }
+
+  .award-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:18px;
+    padding:8px 14px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--amber);
+  }
+
+  /* ---------- CERTS + EDUCATION ---------- */
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+  }
+  @media (max-width:760px){
+    .two-col{ grid-template-columns:1fr; gap:48px; }
+  }
+  .card-list{ display:flex; flex-direction:column; gap:14px; }
+  .cert-card{
+    padding:18px 20px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:14.5px;
+    transition:border-color .2s ease;
+  }
+  .cert-card:hover{ border-color:var(--accent-dim); }
+  .cert-card .cert-name{ font-weight:500; margin-bottom:3px; }
+  .cert-card .cert-issuer{ color:var(--muted); font-size:13px; font-family:var(--mono); }
+
+  .edu-item{
+    padding-bottom:24px;
+    margin-bottom:24px;
+    border-bottom:1px solid var(--border);
+  }
+  .edu-item:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .edu-degree{ font-weight:600; font-size:16px; margin-bottom:4px; }
+  .edu-school{ color:var(--muted); font-size:14px; margin-bottom:6px; }
+  .edu-score{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--accent);
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section{
+    text-align:left;
+    border-top:1px solid var(--border);
+  }
+  .contact-section h2{
+    font-family:var(--display);
+    font-size:clamp(32px,5vw,52px);
+    font-weight:600;
+    max-width:640px;
+    letter-spacing:-0.01em;
+  }
+  .contact-links{
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    border-top:1px solid var(--border);
+    max-width:560px;
+  }
+  .contact-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 0;
+    border-bottom:1px solid var(--border);
+    transition:padding-left .2s ease, color .2s ease;
+  }
+  .contact-link:hover{
+    padding-left:8px;
+    color:var(--accent);
+  }
+  .contact-link .k{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .contact-link .v{ font-size:16px; }
+
+  footer{
+    padding:32px 0 48px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  @media (max-width:640px){
+    section{ padding:80px 0; }
+    .wrap{ padding:0 22px; }
+    footer{ flex-direction:column; gap:8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">sk.habibul</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow"><span class="dot"></span>Kolkata, India — Open to remote &amp; on-site</div>
+    <h1>Automation that catches what manual testing misses.</h1>
+    <p class="sub">SK Habibul — QA Automation Engineer with 5+ years building Playwright and Selenium frameworks that keep enterprise releases shipping clean.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">See the work</a>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="terminal-body" id="terminal-body"></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <div class="section-num">01 / About</div>
+      <h2>Frameworks people trust before every release.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I've spent the last five years inside enterprise QA teams at Infosys and Tech Mahindra, building the automation that stands between a release candidate and production. Most of that work is Playwright with TypeScript and Selenium WebDriver with Java — Page Object Model frameworks designed to hold up as a codebase and its test suite both grow.</p>
+        <p>Lately I've been pulling AI into the workflow itself — GitHub Copilot and Playwright MCP for agentic test authoring — because writing test scripts faster still needs to mean writing them right. I led the migration of a full Selenium-Java suite to Playwright at Tech Mahindra, which is where I learned how much of "faster tests" actually comes down to framework architecture, not tooling.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat-row"><span class="num">5+ yrs</span><span class="label">QA automation experience</span></div>
+        <div class="stat-row"><span class="num">2</span><span class="label">Enterprise employers — Infosys, Tech Mahindra</span></div>
+        <div class="stat-row"><span class="num">3</span><span class="label">Core frameworks — Playwright, Selenium, Rest Assured</span></div>
+        <div class="stat-row"><span class="num">1</span><span class="label">Full Selenium → Playwright migration led</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <div class="section-num">02 / Skills</div>
+      <h2>The stack, run as a suite.</h2>
+    </div>
+    <div class="suite">
+      <div class="suite-group">
+        <div class="suite-group-head">automation-and-testing.spec</div>
+        <div class="suite-items">
+          <div class="suite-item"><span class="check">✓</span><span class="name">Playwright</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Selenium WebDriver</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Rest Assured</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">TestNG</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Page Object Model (POM)</span><span class="time">passed</span></div>
+        </div>
+      </div>
+      <div class="suite-group">
+        <div class="suite-group-head">languages-and-tools.spec</div>
+        <div class="suite-items">
+          <div class="suite-item"><span class="check">✓</span><span class="name">TypeScript</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Java</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Postman &amp; SoapUI</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">MongoDB</span><span class="time">passed</span></div>
+        </div>
+      </div>
+      <div class="suite-group">
+        <div class="suite-group-head">pipeline-and-workflow.spec</div>
+        <div class="suite-items">
+          <div class="suite-item"><span class="check">✓</span><span class="name">Jenkins CI/CD</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">GitHub &amp; GitLab CI</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">GitHub Copilot + Playwright MCP</span><span class="time">passed</span></div>
+          <div class="suite-item"><span class="check">✓</span><span class="name">Agile / Scrum, JIRA, Confluence</span><span class="time">passed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <div class="section-num">03 / Experience</div>
+      <h2>Where the frameworks got built.</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Aug 2025 — Present</div>
+        <div class="tl-role">Quality Engineering Analyst</div>
+        <div class="tl-org">Infosys · Kolkata, India</div>
+        <ul class="tl-list">
+          <li>Design and develop scalable automation frameworks using Playwright with TypeScript, aligned to project best practices.</li>
+          <li>Run comprehensive API automation testing in Playwright, covering response validation and contract coverage.</li>
+          <li>Integrate test suites into CI/CD pipelines with Jenkins for continuous quality feedback on every build.</li>
+          <li>Use GitHub Copilot and Playwright MCP to accelerate script development through agentic testing workflows.</li>
+          <li>Collaborate with developers and product teams to close test coverage gaps ahead of release.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Sep 2021 — Aug 2025</div>
+        <div class="tl-role">Software Engineer — QA Automation</div>
+        <div class="tl-org">Tech Mahindra · Kolkata, India</div>
+        <ul class="tl-list">
+          <li>Built and maintained Hybrid and Page Object Model frameworks in Selenium WebDriver with Java across functional and regression suites.</li>
+          <li>Led the migration from Selenium Java to Playwright, improving test stability, parallel execution, and cross-browser coverage.</li>
+          <li>Tested APIs with Rest Assured, validating payloads, status codes, and schema contracts across microservices.</li>
+          <li>Delivered end-to-end automation coverage across enterprise projects under tight Agile sprint cycles.</li>
+          <li>Scaled the framework architecture to run across Dev, QA, and UAT environments.</li>
+        </ul>
+        <div class="award-tag">★ PAT on the BACK Award — outstanding contribution to automation quality</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="learning">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <div class="section-num">04 / Certifications &amp; Education</div>
+      <h2>Foundations behind the framework work.</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="card-list">
+          <div class="cert-card">
+            <div class="cert-name">Playwright with TypeScript</div>
+            <div class="cert-issuer">Udemy</div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-name">Selenium with Java</div>
+            <div class="cert-issuer">Udemy</div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-name">Rest Assured API Automation</div>
+            <div class="cert-issuer">Udemy</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="edu-item">
+          <div class="edu-degree">B.Tech — Electronics &amp; Communication Engineering</div>
+          <div class="edu-school">RERF, MAKAUT University · Jul 2016 – Jul 2020</div>
+          <div class="edu-score">Score: 76%</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Higher Secondary (Class XII)</div>
+          <div class="edu-school">Rol C M Tayyeb Institution · Jul 2014 – May 2016</div>
+         
